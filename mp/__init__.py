@@ -2,8 +2,12 @@
 
 from flask import Flask
 
+from mp.config import Config
+
 app = Flask(__name__)
 
-app.route('/confim')
+app.config.from_object(Config)
+
+app.route('/confirm')
 def confim():
     return 'Hello Wrold'
