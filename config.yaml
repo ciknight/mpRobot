@@ -1,0 +1,15 @@
+libraries:
+- name: "flask"
+  version: "0.7.2"
+
+handlers:
+- url: /robots.txt
+  static_path: robots.txt
+- url: /favicon.ico
+  static_path: favicon.ico
+- url: /static/
+  static_path: static
+
+handlers:
+- url: /static/
+  gzip: on
