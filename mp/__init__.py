@@ -1,13 +1,22 @@
 # -*- coding: utf-8 -*-
 
-from flask import Flask
+import logging
 
-from mp.config import Config
+from flask import Flask, g
+
+from mp.apis import api_blueprint
+from mp import config
 
 app = Flask(__name__)
 
-app.config.from_object(Config)
+app.config.from_object(config.ProductionConfig)
+app.register_blueprint(api_blueprint)
 
-app.route('/confirm')
-def confim():
-    return 'Hello Wrold'
+@app.before_first_request
+def setup_logging():
+    app.logger.addHandler(logging.StreamHandler())
+    app.logger.setLevel(app.debug and logging.DEBUG or logging.INFO)
+
+@app.before_request
+def before_request():
+    g.logger = app.logger
