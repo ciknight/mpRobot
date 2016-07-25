@@ -2,6 +2,9 @@
 
 
 class Error(object):
+    """
+    wechat error docs: https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1433747234&token=&lang=zh_CN
+    """
 
     ERROR_MESSAGE = {
         -1:     'System is busy',
