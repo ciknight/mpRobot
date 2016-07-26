@@ -4,8 +4,7 @@
 class Config(object):
     DEBUG = False
 
-class ProductionConfig(Config):
-    pass
+    WECHAT = {
+        'token': 'wechat_token'
+    }
 
-class DevelopmentConfig(Config):
-    pass

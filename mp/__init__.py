@@ -5,11 +5,11 @@ import logging
 from flask import Flask, g
 
 from mp.apis import api_blueprint
-from mp import config
+from mp.config import Config
 
 app = Flask(__name__)
 
-app.config.from_object(config.ProductionConfig)
+app.config.from_object(Config)
 app.register_blueprint(api_blueprint)
 
 @app.before_first_request
