@@ -19,7 +19,6 @@ class WeChat(object):
             raise Exception('EncodingAESKey no valid')
         self.WXCrypt = Prpcrypt(self.key)
 
-
     def get_signature(self, timestamp=None, nonce=None, *args):
         sign = [self.token, timestamp, nonce] + list(args)
         sign.sort()

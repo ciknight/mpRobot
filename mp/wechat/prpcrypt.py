@@ -52,7 +52,6 @@ class Prpcrypt(object):
         # 设置加解密模式为AES的CBC模式
         self.mode = AES.MODE_CBC
 
-
     def encrypt(self,text,appid):
         """对明文进行加密
         @param text: 需要加密的明文
