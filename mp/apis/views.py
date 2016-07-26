@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from flask import request, g
+from flask import abort, request, g
 
 from mp.wechat import wechat
 from . import api_blueprint
@@ -15,8 +15,16 @@ def confirm():
         assert wechat.check_signature(signature, timestamp, nonce)
     except:
         g.logger.error('signature no valid')
-        return None
+        return abort(403)
 
     if request.methods == 'GET':
         return request.args.get('echostr')
-    return 'Hello world'
+
+    elif request.methods == 'POST':
+        post_data = request.data
+        if 'Encrypt' in post_data:
+            xml_content = None
+        else:
+            xml_content = post_data
+
+    return 'Hello Python2!'
