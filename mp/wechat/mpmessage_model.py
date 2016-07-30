@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from parser import Parser
+from .parser import Parser
 
 
 class MPMessageModel(object):

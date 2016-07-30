@@ -3,7 +3,7 @@
 from flask import abort, request, g
 
 from mp.wechat import wechat
-from mo.wechat import MPMessageModel
+from mp.wechat import MPMessageModel
 from . import api_blueprint
 
 

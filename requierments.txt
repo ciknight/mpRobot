@@ -1,3 +1,4 @@
 flask
-Crypto
+crypto
+# pycrypto # https://github.com/dlitz/pycrypto.git
 xmltodict

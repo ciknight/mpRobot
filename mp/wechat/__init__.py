@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from error import Error
 from mp.config import Config
-from mpmessage_model import MPMessageModel
-from wechat import WeChat
+from .error import Error
+from .mpmessage_model import MPMessageModel
+from .wechat import WeChat
 
 
 error = Error()

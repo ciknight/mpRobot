@@ -3,7 +3,7 @@
 import base64
 import hashlib
 
-from prpcrypt import Prpcrypt
+from .prpcrypt import Prpcrypt
 
 
 class WeChat(object):

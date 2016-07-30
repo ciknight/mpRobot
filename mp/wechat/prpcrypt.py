@@ -7,10 +7,10 @@
 # ------------------------------------------------------------------------
 
 import base64
+from Crypto.Cipher import AES
 import string
 import random
 import struct
-from Crypto.Cipher import AES
 import socket
 
 
@@ -68,7 +68,7 @@ class Prpcrypt(object):
             ciphertext = cryptor.encrypt(text)
             # 使用BASE64对加密后的字符串进行编码
             return base64.b64encode(ciphertext)
-        except Exception, e:
+        except Exception:
             return None
 
     def decrypt(self,text,appid):
@@ -80,7 +80,7 @@ class Prpcrypt(object):
             cryptor = AES.new(self.key,self.mode,self.key[:16])
             # 使用BASE64对密文进行解码，然后AES-CBC解密
             plain_text  = cryptor.decrypt(base64.b64decode(text))
-        except Exception,e:
+        except Exception as e:
             raise Exception(e)
 
         try:
@@ -93,7 +93,7 @@ class Prpcrypt(object):
             xml_len = socket.ntohl(struct.unpack("I",content[ : 4])[0])
             xml_content = content[4 : xml_len+4]
             from_appid = content[xml_len+4:]
-        except Exception,e:
+        except Exception as e:
             raise Exception(e)
         if  from_appid != appid:
             raise Exception('appid no valid')
