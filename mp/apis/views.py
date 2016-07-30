@@ -4,6 +4,7 @@ from flask import abort, request, g
 
 from mp.wechat import wechat
 from mp.wechat import MPMessageModel
+from mp.robot import robot
 from . import api_blueprint
 
 
@@ -19,17 +20,34 @@ def confirm():
         return abort(403)
 
     if request.methods == 'GET':
-        return request.args.get('echostr')
+        try:
+            echostr = request.args.get['echostr']
+        except Exception as e:
+            g.logger.error('request parm is not echostr!')
+            return abort(403)
+
+        return echostr
 
     elif request.methods == 'POST':
         post_data = request.data
         if 'Encrypt' in post_data:
-            xml_content = wechat.decrypt_xml(post_data,
-                    signature=signature,
-                    timestamp=timestamp,
-                    nonce=nonce)
+            try:
+                xml_content = wechat.decrypt_xml(post_data,
+                        signature=signature,
+                        timestamp=timestamp,
+                        nonce=nonce)
+            except Exception as e:
+                g.logger.error(str(e))
+                return abort(403)
         else:
             xml_content = post_data
 
-        data = MPMessageModel.parser(xml_content)
+        dict_data = MPMessageModel.parser(xml_content)
+        try:
+            replay_xml = robot.replay(dict_data)
+        except Exception as e:
+            g.logger.error(str(e))
+
+        return replay_xml
+
     return 'Hello Python2!'
