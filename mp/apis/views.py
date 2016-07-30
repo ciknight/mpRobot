@@ -42,9 +42,9 @@ def confirm():
         else:
             xml_content = post_data
 
-        dict_data = MPMessageModel.parser(xml_content)
+        message = MPMessageModel.parser(xml_content)
         try:
-            replay_xml = robot.replay(dict_data)
+            replay_xml = robot.replay(message)
         except Exception as e:
             g.logger.error(str(e))
 
