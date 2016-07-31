@@ -44,10 +44,10 @@ def confirm():
 
         message = MPMessageModel.parser(xml_content)
         try:
-            replay_xml = robot.replay(message)
+            message.replay = robot.replay(message)
         except Exception as e:
             g.logger.error(str(e))
 
-        return replay_xml
+        return  message.to_xml()
 
     return 'Hello Python2!'
