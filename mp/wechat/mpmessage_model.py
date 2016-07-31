@@ -15,6 +15,7 @@ class MPMessageModel(object):
         self._type = kwargs.get('MsgType')
         self._message = kwargs.get('Content')
         self._msg_id = kwargs.get('MsgId')
+        self._encrypt = kwargs.get('Encrypt')
         self.replay = None
 
     @property
@@ -76,6 +77,10 @@ class MPMessageModel(object):
     def replay(self, replay):
         self._replay = replay
         return self
+
+    @property
+    def encrypt(self):
+        return self._encrypt
 
     @classmethod
     def factory(cls, **kwargs):

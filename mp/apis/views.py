@@ -29,20 +29,23 @@ def confirm():
         return echostr
 
     elif request.method == 'POST':
-        post_data = request.data
-        if 'Encrypt' in post_data:
+        try:
+            message = MPMessageModel.parser(request.data)
+        except:
+            g.logger.error('post_data parse error')
+            return abort(500)
+
+        if message.encrypt:
             try:
-                xml_content = wechat.decrypt_xml(post_data,
+                message_xml =  wechat.decrypt_xml(message.encrypt,
                         signature=signature,
                         timestamp=timestamp,
                         nonce=nonce)
+                message = MPMessageModel.parser(message_xml)
             except Exception as e:
                 g.logger.error(str(e))
-                return abort(403)
-        else:
-            xml_content = post_data
+                return abort(500)
 
-        message = MPMessageModel.parser(xml_content)
         try:
             message.replay = robot.replay(message)
         except Exception as e:
