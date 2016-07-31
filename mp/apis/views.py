@@ -19,7 +19,7 @@ def confirm():
         g.logger.error('signature no valid')
         return abort(403)
 
-    if request.methods == 'GET':
+    if request.method == 'GET':
         try:
             echostr = request.args.get['echostr']
         except Exception as e:
@@ -28,7 +28,7 @@ def confirm():
 
         return echostr
 
-    elif request.methods == 'POST':
+    elif request.method == 'POST':
         post_data = request.data
         if 'Encrypt' in post_data:
             try:
