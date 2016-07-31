@@ -27,7 +27,7 @@ class Robot(object):
                 return self.cli[self.auth.reg_cli](message.from_id, username)
             return '请发送我叫XXX进行注册，以便获得更多服务。'
 
-        for cli, func in self.cli:
+        for cli, func in self.cli.items():
             if cli in message.message:
                 return func(user)
 

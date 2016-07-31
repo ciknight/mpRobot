@@ -16,7 +16,7 @@ class MPMessageModel(object):
         self._message = kwargs.get('Content')
         self._msg_id = kwargs.get('MsgId')
         self._encrypt = kwargs.get('Encrypt')
-        self.replay = None
+        self._replay = None
 
     @property
     def support_type(self):
@@ -97,7 +97,7 @@ class MPMessageModel(object):
             FromUserName=self.to_id,
             CreateTime=self.create_time,
             MsgType=self.type)
-        if type == 'text':
+        if self.type == 'text':
             _dict.update(Content=self.replay)
 
         return Parser.dict_to_xml(_dict)

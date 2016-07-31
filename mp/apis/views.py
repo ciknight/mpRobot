@@ -50,6 +50,7 @@ def confirm():
             message.replay = robot.replay(message)
         except Exception as e:
             g.logger.error(str(e))
+            return abort(500)
 
         return  message.to_xml()
 
