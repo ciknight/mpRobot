@@ -2,6 +2,7 @@
 
 from .auth import Auth
 
+
 class Robot(object):
 
     def __init__(self):

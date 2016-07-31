@@ -2,7 +2,8 @@
 
 from mp.model import UserModel, ModNetworkModel
 
-def Auth(object):
+
+class Auth(object):
 
     def __init__(self):
         self.reg_cli = '我叫'
