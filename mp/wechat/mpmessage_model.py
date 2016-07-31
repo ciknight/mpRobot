@@ -9,31 +9,32 @@ class MPMessageModel(object):
 
     def __init__(self, *args, **kwargs):
         super(MPMessageModel, self).__init__()
-        self._to_username = kwargs.get('ToUserName')
-        self._from_username = kwargs.get('FromUserName')
+        self._to_id = kwargs.get('ToUserName')
+        self._from_id = kwargs.get('FromUserName')
         self._create_time = kwargs.get('CreateTime')
         self._type = kwargs.get('MsgType')
         self._message = kwargs.get('Content')
         self._msg_id = kwargs.get('MsgId')
+        self.replay = None
 
     @property
     def support_type(self):
         return (self.TYPE_TEXT, )
 
     @property
-    def to_username(self):
-        return self._to_username
-    @to_username.setter
-    def to_username(self, to_username):
-        self._to_username = str(to_username)
+    def to_id(self):
+        return self._to_id
+    @to_id.setter
+    def to_id(self, to_id):
+        self._to_id = str(to_id)
         return self
 
     @property
-    def from_username(self):
-        return self._from_username
-    @from_username.setter
-    def from_username(self, from_username):
-        self._from_username = str(from_username)
+    def from_id(self):
+        return self._from_id
+    @from_id.setter
+    def from_id(self, from_id):
+        self._from_id = str(from_id)
         return self
 
     @property
@@ -68,6 +69,14 @@ class MPMessageModel(object):
         self._msg_id = str(msg_id)
         return self
 
+    @property
+    def replay(self):
+        return self._replay
+    @replay.setter
+    def replay(self, replay):
+        self._replay = replay
+        return self
+
     @classmethod
     def factory(cls, **kwargs):
         return MPMessageModel(**kwargs)
@@ -76,3 +85,14 @@ class MPMessageModel(object):
     def parser(cls, xml_content):
         parser_dict =  Parser.xml_to_dict(xml_content)
         return cls.factory(**parser_dict)
+
+    def to_xml(self):
+        _dict = dict(
+            ToUserName=self.from_id,
+            FromUserName=self.to_id,
+            CreateTime=self.create_time,
+            MsgType=self.type)
+        if type == 'text':
+            _dict.update(Content=self.replay)
+
+        return Parser.dict_to_xml(_dict)
