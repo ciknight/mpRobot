@@ -22,3 +22,8 @@ class Config(object):
         'config': _MYSQL_CONFIG,
         'pool_size': 2
     }
+
+    TULING = {
+        'key': '',
+        'secret': ''
+    }

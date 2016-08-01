@@ -46,12 +46,6 @@ class UserModel(ObjectModel):
         return self.set_data_field('ok_robot', ok_robot)
     ok_robot = property(_get_ok_robot, _set_ok_robot)
 
-    def _get_rename_count(self):
-        return self.get_data_field('rename_count', 1)
-    def _set_rename_count(self, rename_count):
-        return self.set_data_field('rename_count', int(rename_count))
-    rename_count = property(_get_rename_count, _set_rename_count)
-
     # wechat app_id unique wechat_id
     def _get_wechat(self):
         return self.get_data_field('wechat_id')
