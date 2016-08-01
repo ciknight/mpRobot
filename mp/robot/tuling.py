@@ -31,5 +31,4 @@ class TuLing(object):
         if return_dict['code'] != TuLing.SUB_TYPE_TEXT:
             return None
 
-        message = return_dict['text']
-        return message.encode('utf-8')
+        return return_dict['text']
