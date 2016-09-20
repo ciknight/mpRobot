@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from DBUtils.PooledDB import PooledDB
 import pymysql
 
-from mp.util import MetaSingleton
 from .connection import Connection
 
 
@@ -48,14 +46,3 @@ class MySQLConnection(Connection):
             self._real_connect()
         self._connection.ping(reconnect=True)
         return self._connection
-
-
-class MySQLPool(object):
-    __metaclass__ = MetaSingleton
-
-    def __init__(self, pool_size, **kwargs):
-        self._pool = PooledDB(pymysql, pool_size, **kwargs)
-
-    @property
-    def pool(self):
-        return self._pool
