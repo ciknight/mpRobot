@@ -13,24 +13,24 @@ class Robot(object):
         self.auth = Auth()
         self.tuling = TuLing(api_key=Config.TULING.get('key'),
                 api_secret=Config.TULING.get('secret'))
-        self.register_cli(
-                self.auth.reg_cli,
-                self.auth.register_user)
+        self.init_cli()
 
-    def register_cli(self, cli, func):
-        cli = str('cli')
-        self.cli[cli] = func
+    def _register_cli(self, cmd, func):
+        self.cli[str(cmd)] = func
+
+    def init_cli(self):
+        pass
 
     def replay(self, message):
         user = self.auth.get_user(message.from_id)
         if not user:
-            if '我叫' in message.message:
+            if self.auth.reg_cmd in message.message:
                 username = self.auth.parse_username(message.message)
-                return self.cli[self.auth.reg_cli](message.from_id, username)
-            return '请发送我叫XXX进行注册，以便获得更多服务。'
+                return self.auth.register_user(message.from_id, username)
+            return u'请发送我叫XXX进行注册，即可解锁更多功能。'
 
-        for cli, func in self.cli.items():
-            if cli in message.message:
+        for cmd, func in self.cli.items():
+            if cmd in message.message:
                 return func(user)
 
         replay_text = self.tuling.replay_text(message.message)

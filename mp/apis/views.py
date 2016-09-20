@@ -4,7 +4,7 @@ from flask import abort, request, g
 
 from mp.wechat import wechat
 from mp.wechat import MPMessageModel
-from mp.robot import robot
+from mp.robot import Robot
 from . import api_blueprint
 
 
@@ -47,7 +47,7 @@ def confirm():
                 return abort(500)
 
         try:
-            message.replay = robot.replay(message)
+            message.replay = Robot().replay(message)
         except Exception as e:
             g.logger.error(str(e))
             return abort(500)
