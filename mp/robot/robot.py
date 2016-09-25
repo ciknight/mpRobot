@@ -2,11 +2,13 @@
 
 from mp.config import Config
 from mp.model import MessageModel
+from mp.util import MetaSingleton
 from .tuling import TuLing
 from .auth import Auth
 
 
 class Robot(object):
+    __metacalss__ = MetaSingleton
 
     def __init__(self):
         self.cli = {}
