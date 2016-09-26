@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from ext.session import Session
-from mp.util import MetaSingleton
+from mp.util import Session, MetaSingleton
 
 
 class WeChatSession(object):
