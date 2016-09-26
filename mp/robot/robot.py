@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 
+import time
+
 from mp.config import Config
 from mp.model import MessageModel
+from mp.wechat import session
 from mp.util import MetaSingleton
 from .tuling import TuLing
 from .auth import Auth
@@ -17,11 +20,20 @@ class Robot(object):
                 api_secret=Config.TULING.get('secret'))
         self.init_cli()
 
+    def _set_lastRecv(self, user):
+        if not session.get_user(user.wechat):
+            session.save_user(user.wechat)
+
+        session.update_user(user.id, 'lastRecv', int(time.time()))
+
     def _register_cli(self, cmd, func):
+        if self.cli.get(cmd):
+            raise Exception, 'repeat cmd'
+
         self.cli[str(cmd)] = func
 
     def init_cli(self):
-        pass
+        self._register_cli('lastRecv', self._set_lastRecv)
 
     def replay(self, message):
         user = self.auth.get_user(message.from_id)

@@ -24,7 +24,7 @@ class WeChatSession(object):
 
     def update_user(self, from_id, key, value):
         if not self.session.get(from_id):
-            self.save_user(from_id)
+            return None
 
         self.session.get(from_id)[key] = value
         return self
