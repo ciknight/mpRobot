@@ -21,7 +21,7 @@ def confirm():
 
     if request.method == 'GET':
         try:
-            echostr = request.args.get['echostr']
+            echostr = request.args.get('echostr')
         except Exception as e:
             g.logger.error('request parm is not echostr!')
             return abort(403)
